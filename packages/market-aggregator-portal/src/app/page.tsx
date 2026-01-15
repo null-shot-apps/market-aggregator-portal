@@ -22,7 +22,7 @@ const MOCK_PRICE_HISTORY = {
 export default function Dashboard() {
   const [cryptoData, setCryptoData] = useState(MOCK_CRYPTO_DATA);
   const [selectedAsset, setSelectedAsset] = useState('BTC');
-  const [alerts, setAlerts] = useState<Array<{id: string, message: string, type: string}>>([]);
+  const [alerts] = useState<Array<{id: string, message: string, type: string}>>([]);
   const [lastUpdate, setLastUpdate] = useState(new Date());
 
   // Simulate real-time data updates
@@ -246,4 +246,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
 

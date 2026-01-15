@@ -16,7 +16,7 @@ interface AlertManagerProps {
 }
 
 export default function AlertManager({ alerts, onCreateAlert, onDismissAlert }: AlertManagerProps) {
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [, setShowCreateModal] = useState(false);
 
   const alertTypeColors = {
     success: 'bg-green-400',
@@ -77,4 +77,5 @@ export default function AlertManager({ alerts, onCreateAlert, onDismissAlert }: 
     </div>
   );
 }
+
 

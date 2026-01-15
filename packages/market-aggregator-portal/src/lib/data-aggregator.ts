@@ -266,16 +266,16 @@ export class BinanceSource implements DataSource {
   async fetchData(): Promise<RawAssetData[]> {
     try {
       const response = await fetch('https://api.binance.com/api/v3/ticker/24hr');
-      const data = await response.json();
+      const data = await response.json() as Array<{
+        symbol: string;
+        lastPrice: string;
+        volume: string;
+        priceChangePercent: string;
+      }>;
 
       return data
-        .filter((item: { symbol: string }) => item.symbol.endsWith('USDT'))
-        .map((item: {
-          symbol: string;
-          lastPrice: string;
-          volume: string;
-          priceChangePercent: string;
-        }) => ({
+        .filter((item) => item.symbol.endsWith('USDT'))
+        .map((item) => ({
           source: this.name,
           externalId: item.symbol,
           name: item.symbol.replace('USDT', ''),
@@ -307,9 +307,7 @@ export class CoinGeckoSource implements DataSource {
       const response = await fetch(
         'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100'
       );
-      const data = await response.json();
-
-      return data.map((item: {
+      const data = await response.json() as Array<{
         id: string;
         symbol: string;
         name: string;
@@ -317,7 +315,9 @@ export class CoinGeckoSource implements DataSource {
         total_volume: number;
         market_cap: number;
         price_change_percentage_24h: number;
-      }) => ({
+      }>;
+
+      return data.map((item) => ({
         source: this.name,
         externalId: item.id,
         name: item.name,
@@ -343,4 +343,6 @@ export const dataAggregator = new DataAggregator();
 // Register default sources
 dataAggregator.registerSource(new BinanceSource());
 dataAggregator.registerSource(new CoinGeckoSource());
+
+
 

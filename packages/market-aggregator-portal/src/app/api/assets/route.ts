@@ -62,7 +62,11 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = await request.json() as {
+      name?: string;
+      symbol?: string;
+      assetType?: string;
+    };
     
     // Validate required fields
     if (!body.name || !body.symbol || !body.assetType) {
@@ -100,4 +104,5 @@ export async function POST(request: Request) {
     }, { status: 500 });
   }
 }
+
 

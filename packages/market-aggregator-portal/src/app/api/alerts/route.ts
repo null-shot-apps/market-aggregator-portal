@@ -35,7 +35,11 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = await request.json() as {
+      assetId?: string;
+      type?: string;
+      threshold?: number;
+    };
 
     // Validate required fields
     if (!body.assetId || !body.type || body.threshold === undefined) {
@@ -84,4 +88,5 @@ export async function POST(request: Request) {
     }, { status: 500 });
   }
 }
+
 

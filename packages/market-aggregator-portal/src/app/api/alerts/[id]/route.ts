@@ -32,7 +32,7 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    const body = await request.json();
+    const body = await request.json() as Record<string, unknown>;
 
     // In production:
     // 1. Authenticate user
@@ -55,4 +55,5 @@ export async function PATCH(
     }, { status: 500 });
   }
 }
+
 

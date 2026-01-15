@@ -74,7 +74,7 @@ class MarketAggregatorAPI {
         throw new Error(`API error: ${response.status} ${response.statusText}`);
       }
 
-      const data = await response.json();
+      const data = await response.json() as T;
 
       // Cache successful response
       this.cache.set(cacheKey, {
@@ -197,7 +197,6 @@ export function useMarketData<T>(
 
   React.useEffect(() => {
     let mounted = true;
-    let intervalId: NodeJS.Timeout;
 
     const fetchData = async () => {
       const response = await fetcher();
@@ -213,7 +212,7 @@ export function useMarketData<T>(
     };
 
     fetchData();
-    intervalId = setInterval(fetchData, interval);
+    const intervalId = setInterval(fetchData, interval);
 
     return () => {
       mounted = false;
@@ -226,4 +225,6 @@ export function useMarketData<T>(
 
 // Import React for the hook
 import React from 'react';
+
+
 
